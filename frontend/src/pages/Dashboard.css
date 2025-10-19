@@ -1,0 +1,26 @@
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+.btn-container button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background: #28a745;
+  color: white;
+  cursor: pointer;
+}
+.btn-container button:hover {
+  background: #218838;
+}
+.output {
+  background: #1e1e1e;
+  color: #0f0;
+  padding: 15px;
+  margin: 20px;
+  border-radius: 8px;
+  text-align: left;
+  overflow-x: auto;
+}

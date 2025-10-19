@@ -1,0 +1,22 @@
+.footer {
+  margin-top: 40px;
+  background: linear-gradient(90deg, #0b1221, #0f172a);
+  color: #cbd5e1;
+  padding: 20px 24px;
+}
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer a {
+  color: #90caf9;
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
