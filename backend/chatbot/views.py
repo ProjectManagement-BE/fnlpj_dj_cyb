@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from openai import OpenAI
 import os
+from dotenv import load_dotenv
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # ⚡ Directly use your API key here

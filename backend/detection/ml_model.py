@@ -8,12 +8,37 @@ import os
 MODEL_FILE = "detection/url_model.pkl"
 
 # Sample training dataset (tiny for demo, replace with real dataset later)
-TRAIN_URLS = [
-    ("http://paypal.com.secure-login.co", 1),   # phishing
-    ("http://secure-update-account.com", 1),   # phishing
-    ("http://example.com", 0),                 # safe
-    ("https://www.google.com", 0),             # safe
-]
+import pandas as pd
+
+MODEL_FILE = "detection/url_model.pkl"
+DATASET_FILE = "detection/dataset_urls.csv"
+
+def train_model():
+    # Load full dataset
+    df = pd.read_csv(DATASET_FILE)
+    urls = df['url'].tolist()
+    labels = df['label'].tolist()
+
+    # Extract features
+    texts = [extract_features(url) for url in urls]
+
+    # Vectorize
+    vectorizer = CountVectorizer()
+    X = vectorizer.fit_transform(texts)
+
+    # Train model
+    model = LogisticRegression()
+    model.fit(X, labels)
+
+    # Save model
+    joblib.dump((model, vectorizer), MODEL_FILE)
+    print("✅ Model trained with full dataset and saved!")
+
+
+
+
+
+
 
 def extract_features(url):
     """Simple feature extractor: length, digits, special chars"""
@@ -23,18 +48,7 @@ def extract_features(url):
     domain = tldextract.extract(url).domain
     return f"{domain} length:{length} digits:{digits} special:{special}"
 
-def train_model():
-    texts = [extract_features(url) for url, label in TRAIN_URLS]
-    labels = [label for url, label in TRAIN_URLS]
 
-    vectorizer = CountVectorizer()
-    X = vectorizer.fit_transform(texts)
-
-    model = LogisticRegression()
-    model.fit(X, labels)
-
-    joblib.dump((model, vectorizer), MODEL_FILE)
-    print("✅ Model trained and saved!")
 
 def predict_url(url):
     if not os.path.exists(MODEL_FILE):
